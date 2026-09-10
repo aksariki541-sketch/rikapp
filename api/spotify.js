@@ -16,12 +16,13 @@ function isValidPlaylistId(id) {
 function extractPlaylistId(input) {
     if (!input) return '';
     const str = String(input).trim();
-    // Accept a raw ID directly.
-    if (isValidPlaylistId(str) && !str.includes('/') && !str.includes(':')) return str;
-    // spotify:playlist:ID
+    // spotify:playlist:ID (Spotify's own URI scheme — unambiguous, safe to accept)
     const uriMatch = str.match(/^spotify:playlist:([a-zA-Z0-9]+)$/);
     if (uriMatch) return uriMatch[1];
     // https://open.spotify.com/playlist/ID?si=...&utm_source=...
+    // A bare alphanumeric string is intentionally NOT accepted here — the
+    // spec requires validating an actual Spotify playlist URL and rejecting
+    // (without calling the Spotify API) anything that isn't one.
     try {
         const url = new URL(str);
         if (!/(^|\.)spotify\.com$/i.test(url.hostname)) return '';
