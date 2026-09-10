@@ -1,0 +1,16 @@
+{
+  "name": "musifyrik",
+  "private": true,
+  "version": "3.0.0",
+  "description": "MusifyRik 3.0 - Web Music Player",
+  "scripts": {
+    "lint": "node --check public/app.js",
+    "dev": "node server.js",
+    "build": "echo 'No build required'",
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "axios": "^1.18.1",
+    "express": "^5.2.1"
+  }
+}
